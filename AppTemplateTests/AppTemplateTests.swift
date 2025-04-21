@@ -33,4 +33,28 @@ final class AppTemplateTests: XCTestCase {
         }
     }
 
+    // MARK: - Supabase Setup Tests
+
+    func testSupabaseManagerInitialization() throws {
+        // This test implicitly checks if credentials can be read from Info.plist.
+        // If credentials are missing or invalid, the SupabaseManager initializer will call fatalError.
+        let manager = SupabaseManager.shared
+        XCTAssertNotNil(manager.client, "Supabase client should not be nil after initialization.")
+    }
+
+    func testAuthRepositoryInitialization() throws {
+        // Ensures AuthRepository initializes and gets the client from SupabaseManager.
+        let authRepo = AuthRepository()
+        // Accessing the client directly isn't possible due to access control, 
+        // but successful initialization implies the client was passed correctly.
+        XCTAssertNotNil(authRepo, "AuthRepository should initialize successfully.")
+    }
+
+    func testDataRepositoryInitialization() throws {
+        // Ensures DataRepository initializes and gets the client from SupabaseManager.
+        let dataRepo = DataRepository()
+        // Similar to AuthRepository, successful initialization is the main check.
+        XCTAssertNotNil(dataRepo, "DataRepository should initialize successfully.")
+    }
+
 }

@@ -12,23 +12,25 @@ class SupabaseManager {
     // Shared instance
     static let shared = SupabaseManager()
 
-    // Supabase client (to be initialized)
-    // let client: SupabaseClient
+    // Supabase client
+    let client: SupabaseClient
 
     private init() {
-        // Initialization logic will go here
-        // Replace with your actual URL and Key retrieval logic
-        // guard let supabaseURL = URL(string: "your-supabase-url"),
-        //       let supabaseKey = "your-supabase-anon-key" else {
-        //     fatalError("Supabase URL or Key not found. Check configuration.")
-        // }
-        // self.client = SupabaseClient(supabaseURL: supabaseURL, supabaseKey: supabaseKey)
-        print("SupabaseManager initialized (placeholder)")
+        // Retrieve Supabase URL and Anon Key from Info.plist (populated by xcconfig)
+        guard let supabaseURLString = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
+              let supabaseURL = URL(string: supabaseURLString),
+              let supabaseKey = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_ANON_KEY") as? String else {
+            fatalError("Supabase URL or Key not found in Info.plist. Check configuration and Secrets.xcconfig.")
+        }
+
+        // Initialize the Supabase client
+        self.client = SupabaseClient(supabaseURL: supabaseURL, supabaseKey: supabaseKey)
+        print("SupabaseManager initialized successfully.")
     }
 
     func initialize() {
-        // This function can be called from the App struct if needed
-        // Ensures the singleton is created early
+        // This function can be called from the App struct or AppDelegate
+        // Ensures the singleton is created early, triggering the init
         _ = SupabaseManager.shared
     }
 } 
