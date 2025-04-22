@@ -1,0 +1,23 @@
+iOSAppTemplate/
+├── README.md
+├── AppTemplate/
+│   ├── Info.plist
+│   ├── ContentView.swift          # Main view shown after login; displays welcome/user email and logout.
+│   ├── AppTemplateApp.swift       # SwiftUI App entry point; initializes services and manages root view (Login vs Content).
+│   ├── Features/
+│   │   └── Authentication/
+│   │       ├── SignUpView.swift   # UI for user registration (email/password).
+│   │       └── LoginView.swift    # UI for user login (email/password); navigation to sign up.
+│   ├── Secrets.Example.xcconfig
+│   ├── Secrets.xcconfig
+│   ├── Preview Content/
+│   ├── Core/
+│   │   ├── Auth/
+│   │   │   ├── AuthViewModel.swift # Manages authentication state (login status, user info, errors, loading) using Keychain and Supabase.
+│   │   │   ├── KeychainHelper.swift # Utility for securely saving/loading/deleting session tokens in Keychain.
+│   │   │   └── AuthRepository.swift # (Placeholder) Data layer abstraction for authentication operations.
+│   │   ├── Database/
+│   │   │   └── DataRepository.swift # (Placeholder) Data layer abstraction for database operations.
+│   │   └── Supabase/
+│   │       └── SupabaseManager.swift # Singleton manager for initializing and interacting with the Supabase client (auth, database).
+└── .gitignore 
