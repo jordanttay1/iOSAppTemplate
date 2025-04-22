@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct AppTemplateApp: App {
+    // Initialize SupabaseManager early
+    init() {
+        SupabaseManager.shared.initialize()
+    }
+
+    // Create the AuthViewModel as a StateObject
+    @StateObject private var authViewModel = AuthViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            // Conditionally show Login or Content view
+            if authViewModel.isAuthenticated {
+                ContentView()
+                    .environmentObject(authViewModel) // Inject into environment
+            } else {
+                LoginView()
+                    .environmentObject(authViewModel) // Inject into environment
+            }
         }
     }
 }
